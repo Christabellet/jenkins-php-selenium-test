@@ -11,14 +11,22 @@ pipeline {
 						sh './jenkins/scripts/kill.sh'
 					}
 				}
+
+				stage('Print Path') {
+					steps {
+						script {
+							sh 'echo $PATH'
+						}
+           			 }
+        			}
 				stage('Headless Browser Test') {
 					agent any 
 					tools{
 						maven 'Maven' // Use the name configured in Jenkins global tool configuration
 					}
 					steps {
-						sh 'mvn -B -DskipTests clean package'
-						sh 'mvn test'
+						sh '/var/jenkins_home/apache-maven-3.6.3/bin/mvn -B -DskipTests clean package'
+						sh '/var/jenkins_home/apache-maven-3.6.3/bin/mvn test'
 					}
 					post {
 						always {
