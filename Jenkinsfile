@@ -13,6 +13,9 @@ pipeline {
 				}
 				stage('Headless Browser Test') {
 					agent any 
+					tools{
+						maven 'Maven' // Use the name configured in Jenkins global tool configuration
+					}
 					steps {
 						sh 'mvn -B -DskipTests clean package'
 						sh 'mvn test'
