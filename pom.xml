@@ -25,4 +25,19 @@
         <version>2.44.0</version>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.11.0</version> <!-- Choose the desired version -->
+            <configuration>
+                <source>1.8</source> <!-- Set your Java source version -->
+                <target>1.8</target> <!-- Set your Java target version -->
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
 </project>
