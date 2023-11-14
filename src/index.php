@@ -14,7 +14,7 @@ function isStrongPassword($password) {
 
 	// Check if the password is a common password
 	if (isCommonPassword($password)) {
-		return false;
+		return "Invalid Password";
 	}
     // Minimum length requirement
     $minLength = 10;
