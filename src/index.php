@@ -22,7 +22,6 @@ function isStrongPassword($password) {
 }
 
 
-
 if (isset($_POST['submit'])) {
     if (isset($_POST['password']) && $_POST['password'] != '') {
         $password = trim($_POST['password']);
@@ -32,7 +31,7 @@ if (isset($_POST['submit'])) {
             // You might want to perform additional checks for the password
             // before setting the session. This example only checks for a specific password.
 			$password_hash = password_hash($password, PASSWORD_DEFAULT, ["cost" => $cost]);
-			echo "Password hash: $password_hash";
+			//echo "Password hash: $password_hash";
             $_SESSION['user_id'] = "user@example.com";
 
             header('location:dashboard.php');
