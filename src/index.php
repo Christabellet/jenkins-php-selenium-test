@@ -1,7 +1,20 @@
 <?php 
 session_start();
 
+function isCommonPassword($password) {
+    // Define an array of common passwords from your txt file
+    $commonPasswords = file('/Users/christabelletham/Downloads/10-million-password-list-top-1000.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    // Check if the provided password is in the common passwords list
+    return in_array($password, $commonPasswords);
+}
+
 function isStrongPassword($password) {
+
+	// Check if the password is a common password
+	if (isCommonPassword($password)) {
+		return false;
+	}
     // Minimum length requirement
     $minLength = 10;
 
