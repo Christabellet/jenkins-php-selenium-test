@@ -24,9 +24,7 @@ public class AppTest
 	WebDriver driver; 
 	WebDriverWait wait; 
 	String url = "http://192.168.1.249";
-	String validEmail = "user@example.com";
 	String validPassword = "password1234";
-	String invalidEmail = "none@example.com";
 	String invalidPassword = "password";
 
     @Before
@@ -50,7 +48,6 @@ public class AppTest
 		wait.until(ExpectedConditions.titleContains("Login Page |")); 
 
 		//enter input
-		driver.findElement(By.name("email")).sendKeys(validEmail);
 		driver.findElement(By.name("password")).sendKeys(validPassword);
 		//click submit
 		driver.findElement(By.name("submit")).submit();
