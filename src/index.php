@@ -14,14 +14,14 @@ function isStrongPassword($password) {
 
 	// Check if the password is a common password
 	if (isCommonPassword($password)) {
-		return "Invalid Password";
+		return "Login failed";
 	}
     // Minimum length requirement
     $minLength = 10;
 
     // Check if the password meets the minimum length requirement
     if (strlen($password) < $minLength) {
-        return "Password length too short";
+        return "Login failed";
     }
 
     // Check for a mix of character types (uppercase, lowercase, numbers, symbols)
@@ -29,7 +29,7 @@ function isStrongPassword($password) {
         !preg_match('/[a-z]/', $password) ||
         !preg_match('/[0-9]/', $password) ||
         !preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
-        return "Password does not consist of the necessary characters";
+        return "Login failed";
     }
 
     return "Password is valid";
