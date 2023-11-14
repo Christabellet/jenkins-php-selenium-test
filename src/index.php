@@ -4,8 +4,7 @@ session_start();
 function isCommonPassword($password) {
     // Define an array of common passwords from your txt file
     $commonPasswords = file('10-million-password-list-top-1000.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-
-    echo "Pw: $commonPasswords";
+    //echo "Pw: $commonPasswords";
     // Check if the provided password is in the common passwords list
     return in_array($password, $commonPasswords);
 }
@@ -42,7 +41,7 @@ if (isset($_POST['submit'])) {
 
 		$cost = 15;
         if (isStrongPassword($password)) {
-            echo "Password: $password";
+            //echo "Password: $password";
             // You might want to perform additional checks for the password
             // before setting the session. This example only checks for a specific password.
 			$password_hash = password_hash($password, PASSWORD_DEFAULT, ["cost" => $cost]);
