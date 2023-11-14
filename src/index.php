@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
 
 		$cost = 15;
         if (isStrongPassword($password)) {
-            echo "Password: $password"
+            echo "Password: $password";
             // You might want to perform additional checks for the password
             // before setting the session. This example only checks for a specific password.
 			$password_hash = password_hash($password, PASSWORD_DEFAULT, ["cost" => $cost]);
