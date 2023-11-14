@@ -3,7 +3,8 @@ session_start();
 
 function isCommonPassword($password) {
     // Define an array of common passwords from your txt file
-    $commonPasswords = file('/10-million-password-list-top-1000.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	$filePath = __DIR__ . '/10-million-password-list-top-1000.txt';
+    $commonPasswords = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
     // Check if the provided password is in the common passwords list
     return in_array($password, $commonPasswords);
