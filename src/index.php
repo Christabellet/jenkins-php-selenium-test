@@ -21,7 +21,7 @@ function isStrongPassword($password) {
 
     // Check if the password meets the minimum length requirement
     if (strlen($password) < $minLength) {
-        return false;
+        return "Password length too short";
     }
 
     // Check for a mix of character types (uppercase, lowercase, numbers, symbols)
@@ -29,10 +29,10 @@ function isStrongPassword($password) {
         !preg_match('/[a-z]/', $password) ||
         !preg_match('/[0-9]/', $password) ||
         !preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
-        return false;
+        return "Password does not consist of the necessary characters";
     }
 
-    return true;
+    return "Password is valid";
 }
 
 
@@ -42,6 +42,7 @@ if (isset($_POST['submit'])) {
 
 		$cost = 15;
         if (isStrongPassword($password)) {
+            echo "Password: $password"
             // You might want to perform additional checks for the password
             // before setting the session. This example only checks for a specific password.
 			$password_hash = password_hash($password, PASSWORD_DEFAULT, ["cost" => $cost]);

@@ -39,7 +39,7 @@ public class AppTest
 	}	 
 	
     @Test
-    public void testLoginWithValidEmailValidPassword() 
+    public void testLoginWithValidPassword() 
 		throws InterruptedException { 
 
 		//get web page
@@ -59,7 +59,7 @@ public class AppTest
 	}
 		
 	@Test
-    public void testLoginWithValidEmailInvalidPassword() 
+    public void testLoginWithInvalidPassword() 
 		throws InterruptedException { 
 
 		//get web page
@@ -68,7 +68,6 @@ public class AppTest
 		wait.until(ExpectedConditions.titleContains("Login Page |")); 
 
 		//enter input
-		driver.findElement(By.name("email")).sendKeys(validEmail);
 		driver.findElement(By.name("password")).sendKeys(invalidPassword);
 		//click submit
 		driver.findElement(By.name("submit")).submit();
