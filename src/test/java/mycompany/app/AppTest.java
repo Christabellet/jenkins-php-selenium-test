@@ -26,7 +26,7 @@ public class AppTest {
     String url = "http://192.168.1.249";
     String searchTermWithScript = "<script>alert('XSS');</script>";
     String searchTermWithSQLInjection = "test'; DROP TABLE users; --";
-	String validSearchTerm = "cheese"
+	String validSearchTerm = "cheese";
 
     @Before
     public void setUp() {
