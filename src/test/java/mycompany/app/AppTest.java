@@ -19,64 +19,58 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /**
  * Integration UI test for PHP App.
  */
-public class AppTest
-{
-	WebDriver driver; 
-	WebDriverWait wait; 
-	String url = "http://192.168.1.249";
-	String validPassword = "Chris@2001!";
-	String invalidPassword = "password";
+public class AppTest {
+
+    WebDriver driver;
+    WebDriverWait wait;
+    String url = "http://192.168.1.249";
+    String searchTermWithScript = "<script>alert('XSS');</script>";
+    String searchTermWithSQLInjection = "test'; DROP TABLE users; --";
 
     @Before
-    public void setUp() { 
-		driver = new HtmlUnitDriver(); 
-		wait = new WebDriverWait(driver, 10); 
-	} 
+    public void setUp() {
+        driver = new HtmlUnitDriver();
+        wait = new WebDriverWait(driver, 10);
+    }
 
-	@After
-    public void tearDown() { 
-		driver.quit(); 
-	}	 
-	
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
+
     @Test
-    public void testLoginWithValidPassword() 
-		throws InterruptedException { 
+    public void testSearchWithValidTerm() {
+        driver.get(url);
+        wait.until(ExpectedConditions.titleContains("Home Page"));
 
-		//get web page
-		driver.get(url);
-		//wait until page is loaded or timeout error
-		wait.until(ExpectedConditions.titleContains("Login Page |")); 
+        driver.findElement(By.id("searchTerm")).sendKeys("validSearchTerm");
+        driver.findElement(By.name("submit")).submit();
 
-		//enter input
-		driver.findElement(By.name("password")).sendKeys(validPassword);
-		//click submit
-		driver.findElement(By.name("submit")).submit();
-	
-		//check result 
-		String expectedResult = "Dashboard |"; 
-		boolean isResultCorrect = wait.until(ExpectedConditions.titleContains(expectedResult)); 
-		assertTrue(isResultCorrect == true); 
-	}
-		
-	@Test
-    public void testLoginWithInvalidPassword() 
-		throws InterruptedException { 
+        // Assuming the results page has a specific title or element to verify
+        assertTrue(driver.getTitle().contains("Results"));
+    }
 
-		//get web page
-		driver.get(url);
-		//wait until page is loaded or timeout error
-		wait.until(ExpectedConditions.titleContains("Login Page |")); 
+    @Test
+    public void testSearchWithScript() {
+        driver.get(url);
+        wait.until(ExpectedConditions.titleContains("Home Page"));
 
-		//enter input
-		driver.findElement(By.name("password")).sendKeys(invalidPassword);
-		//click submit
-		driver.findElement(By.name("submit")).submit();
-	
-		//check result
-		By errorMsgId = By.className("error-msg");
-		String expectedResult = "Login failed"; 
-		boolean isResultCorrect = wait.until(ExpectedConditions.textToBe(errorMsgId, expectedResult)); 
-		assertTrue(isResultCorrect == true); 
-	}
+        driver.findElement(By.id("searchTerm")).sendKeys(searchTermWithScript);
+        driver.findElement(By.name("submit")).submit();
 
+        // Assuming the results page has an error message for invalid input
+        assertTrue(driver.getPageSource().contains("Invalid input detected"));
+    }
+
+    @Test
+    public void testSearchWithSQLInjection() {
+        driver.get(url);
+        wait.until(ExpectedConditions.titleContains("Home Page"));
+
+        driver.findElement(By.id("searchTerm")).sendKeys(searchTermWithSQLInjection);
+        driver.findElement(By.name("submit")).submit();
+
+        // Assuming the results page has an error message for invalid input
+        assertTrue(driver.getPageSource().contains("Invalid input detected"));
+    }
 }
